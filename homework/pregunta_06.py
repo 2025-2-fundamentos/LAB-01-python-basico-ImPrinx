@@ -26,3 +26,25 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    traductor = {'aaa': 0, 'bbb': 1, 'ccc': 2, 'ddd': 3, 'eee':4, 'fff':5 , 'ggg':6, 'hhh':7, 'iii':8, 'jjj':9}
+    minimos = len(traductor) * [float('inf')]
+    maximos = len(traductor) * [( -1 * float('inf'))]
+
+    with open('files/input/data.csv', 'r') as file:
+        for linea in file:
+            datos = linea.split()
+            codificados = datos[4]
+            lista_de_diccionario = codificados.split(',')
+            for diccionario in lista_de_diccionario:
+                clave, valor = diccionario.split(':')
+                valor = int(valor)
+                
+                if valor > maximos[traductor[clave]]:
+                    maximos[traductor[clave]] = valor
+
+                if valor < minimos[traductor[clave]]:
+                    minimos[traductor[clave]] = valor
+
+    res = [(clave, minimos[i], maximos[i]) for i , clave in enumerate(traductor.keys())]
+
+    return res

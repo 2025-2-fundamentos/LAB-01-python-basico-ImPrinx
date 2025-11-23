@@ -15,3 +15,22 @@ def pregunta_05():
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
 
     """
+    traductor = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E':4}
+    minimos = len(traductor) * [float('inf')]
+    maximos = len(traductor) * [( -1 * float('inf'))]
+
+
+    with open('files/input/data.csv', 'r') as file:
+        for linea in file:
+            datos = linea.split()
+            letra = datos [0]
+            valor = int(datos[1])
+
+            if valor > maximos[traductor[letra]]:
+                maximos[traductor[letra]] = valor
+
+            if valor < minimos[traductor[letra]]:
+                minimos[traductor[letra]] = valor
+
+    res = [(letra, maximos[i], minimos[i]) for i, letra in enumerate(traductor.keys())]
+    return res

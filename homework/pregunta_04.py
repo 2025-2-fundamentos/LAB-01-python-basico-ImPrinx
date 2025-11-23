@@ -4,7 +4,7 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
+from collections import defaultdict
 
 def pregunta_04():
     """
@@ -26,3 +26,15 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    repeticiones = defaultdict(int)
+
+    with open('files/input/data.csv', 'r') as file:
+        for linea in file:
+            datos = linea.split()
+            fecha = datos[2]
+            anio, mes, dia = fecha.split('-')
+            repeticiones[mes] +=1
+            
+    return sorted(repeticiones.items(), key = lambda x: x[0])
+
+pregunta_04()
